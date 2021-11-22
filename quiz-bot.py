@@ -58,109 +58,19 @@ def get_user(update):
 
     return user
 
-N_ANS = 6
-answered_answers = 0
-correct_ans_count = 0
 
 def start_command_handler(update, context):
     """Send a message when the command /start is issued."""
     add_typing(update, context)
 
     quiz_question = QuizQuestion()
-    quiz_question.question = "¿Qué es git?"
-    quiz_question.answers = ["Una plataforma de repositorios remotos", "Un sistema de control de versiones", "Un lenguaje de script"]
-    quiz_question.correct_answer_position = 1
-    quiz_question.correct_answer = "Un sistema de control de versiones"
-
-    add_quiz_question(update, context, quiz_question)
-
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Cuál es el comando para obtener el estado actual del repositorio git?"
-    quiz_question.answers = ["git status", "git current", "git currentStatus"]
-    quiz_question.correct_answer_position = 0
-    quiz_question.correct_answer = "git status"
-
-    add_quiz_question(update, context, quiz_question)
-
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Cuál es el comando para inicializar un repositorio git?"
-    quiz_question.answers = ["git start", "git now", "git init"]
+    quiz_question.question = "What tastes better?"
+    quiz_question.answers = ["water", "ice", "wine"]
     quiz_question.correct_answer_position = 2
-    quiz_question.correct_answer = "git init"
-
-    add_quiz_question(update, context, quiz_question)
-    
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Cuál es el comando para obtener el historial de commits?"
-    quiz_question.answers = ["git commits", "git log", "git all commits"]
-    quiz_question.correct_answer_position = 1
-    quiz_question.correct_answer = "git log"
+    quiz_question.correct_answer = "wine"
 
     add_quiz_question(update, context, quiz_question)
 
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Cuál es el comando para pushear a remote origin?"
-    quiz_question.answers = ["git remote", "git remote push", "git push origin"]
-    quiz_question.correct_answer_position = 2
-    quiz_question.correct_answer = "git push origin"
-
-    add_quiz_question(update, context, quiz_question)
-
-    quiz_question = QuizQuestion()
-    quiz_question.question = "Git pull es una combinación de"
-    quiz_question.answers = ["add y commit", "fetch y merge", "branch y commit"]
-    quiz_question.correct_answer_position = 1
-    quiz_question.correct_answer = "fetch y merge"
-
-    add_quiz_question(update, context, quiz_question)
-
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Cual opcion de git reset no altera el directorio de trabajo?"
-    quiz_question.answers = ["--soft", "--mixed", "--hard"]
-    quiz_question.correct_answer_position = [0,1]
-    quiz_question.correct_answer = ["--soft", "--mixed"]
-
-    add_quiz_question(update, context, quiz_question)
-
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Que tipo de merge ocurre cuando hay desarrollo lineal entre las ramas a fusionar?"
-    quiz_question.answers = ["fastforward", "recursive", "linear"]
-    quiz_question.correct_answer_position = 0
-    quiz_question.correct_answer = "fastforward"
-
-    add_quiz_question(update, context, quiz_question)
-
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Que comando se usa para crear una nueva rama?"
-    quiz_question.answers = ["checkout -b 'nombre-rama'", "create branch 'nombre-rama'", "new branch 'nombre-rama'"]
-    quiz_question.correct_answer_position = 0
-    quiz_question.correct_answer = "checkout -b 'nombre-rama'"
-
-    add_quiz_question(update, context, quiz_question)
-    
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Que comando se usa para cambiar de rama?"
-    quiz_question.answers = ["checkout -c 'nombre-rama'", "checkout 'nombre-rama'", "change branch 'nombre-rama'"]
-    quiz_question.correct_answer_position = 1
-    quiz_question.correct_answer = "checkout 'nombre-rama'"
-
-    add_quiz_question(update, context, quiz_question)
-
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Que comando sirve para introducir un commit de una rama a otra?"
-    quiz_question.answers = ["git get commit", "git add commit","git cherrypick commit"]
-    quiz_question.correct_answer_position = 2
-    quiz_question.correct_answer = "git cherrypick commit"
-
-    add_quiz_question(update, context, quiz_question)
-
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Que comando sirve para revertir los cambios hechos en una rama?"
-    quiz_question.answers = ["git revert", "git goback","git reset"]
-    quiz_question.correct_answer_position = [0,2]
-    quiz_question.correct_answer = ["git revert","git reset"]
-
-    add_quiz_question(update, context, quiz_question)
 
 def help_command_handler(update, context):
     """Send a message when the command /help is issued."""
@@ -197,10 +107,6 @@ def main_handler(update, context):
 
 
 def poll_handler(update, context):
-    global N_ANS
-    global answered_answers
-    global correct_ans_count
-
     logging.info(f"question : {update.poll.question}")
     logging.info(f"correct option : {update.poll.correct_option_id}")
     logging.info(f"option #1 : {update.poll.options[0]}")
@@ -209,17 +115,9 @@ def poll_handler(update, context):
 
     user_answer = get_answer(update)
     logging.info(f"correct option {is_answer_correct(update)}")
-    
-    answered_answers+=1
-    correct_ans_count = correct_ans_count+1 if is_answer_correct(update) else correct_ans_count
 
-    #add_text_message(update, context, f"Correct answer is {update.poll.correct_option_id}")
-
-    if answered_answers == N_ANS:
-        add_typing(update, context)
-        add_text_message(update, context, f"Nota: {correct_ans_count+1}")
-        answered_answers = 0
-        correct_ans_count = 0
+    add_typing(update, context)
+    add_text_message(update, context, f"Correct answer is {user_answer}")
 
 
 def add_typing(update, context):
@@ -257,7 +155,7 @@ def add_quiz_question(update, context, quiz_question):
         options=quiz_question.answers,
         type=Poll.QUIZ,
         correct_option_id=quiz_question.correct_answer_position,
-        #open_period=20,
+        open_period=5,
         is_anonymous=True,
         explanation="Well, honestly that depends on what you eat",
         explanation_parse_mode=telegram.ParseMode.MARKDOWN_V2,
