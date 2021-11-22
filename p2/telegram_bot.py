@@ -1,5 +1,6 @@
 import time
 import datetime
+import random
 
 import pyfiglet
 import logging
@@ -66,101 +67,126 @@ def start_command_handler(update, context):
     """Send a message when the command /start is issued."""
     add_typing(update, context)
 
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Qué es git?"
-    quiz_question.answers = ["Una plataforma de repositorios remotos", "Un sistema de control de versiones", "Un lenguaje de script"]
-    quiz_question.correct_answer_position = 1
-    quiz_question.correct_answer = "Un sistema de control de versiones"
+    question = [False]*10
+    index = list(range(0, 10))
+    selected_idx = random.sample(index, 6)
+    for idx in selected_idx:
+        question[idx] = True
 
-    add_quiz_question(update, context, quiz_question)
+    index = 0
+    if question[index]:
+        quiz_question = QuizQuestion()
+        quiz_question.question = "¿Qué es git?"
+        quiz_question.answers = ["Una plataforma de repositorios remotos", "Un sistema de control de versiones", "Un lenguaje de script"]
+        quiz_question.correct_answer_position = 1
+        quiz_question.correct_answer = "Un sistema de control de versiones"
+        add_quiz_question(update, context, quiz_question)
 
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Cuál es el comando para obtener el estado actual del repositorio git?"
-    quiz_question.answers = ["git status", "git current", "git currentStatus"]
-    quiz_question.correct_answer_position = 0
-    quiz_question.correct_answer = "git status"
+    index+=1
 
-    add_quiz_question(update, context, quiz_question)
+    if question[index]:
+        quiz_question = QuizQuestion()
+        quiz_question.question = "¿Cuál es el comando para obtener el estado actual del repositorio git?"
+        quiz_question.answers = ["git status", "git current", "git currentStatus"]
+        quiz_question.correct_answer_position = 0
+        quiz_question.correct_answer = "git status"
+        add_quiz_question(update, context, quiz_question)
 
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Cuál es el comando para inicializar un repositorio git?"
-    quiz_question.answers = ["git start", "git now", "git init"]
-    quiz_question.correct_answer_position = 2
-    quiz_question.correct_answer = "git init"
+    index+=1
 
-    add_quiz_question(update, context, quiz_question)
+    if question[index]:
+        quiz_question = QuizQuestion()
+        quiz_question.question = "¿Cuál es el comando para inicializar un repositorio git?"
+        quiz_question.answers = ["git start", "git now", "git init"]
+        quiz_question.correct_answer_position = 2
+        quiz_question.correct_answer = "git init"
+        add_quiz_question(update, context, quiz_question)
     
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Cuál es el comando para obtener el historial de commits?"
-    quiz_question.answers = ["git commits", "git log", "git all commits"]
-    quiz_question.correct_answer_position = 1
-    quiz_question.correct_answer = "git log"
+    index+=1
 
-    add_quiz_question(update, context, quiz_question)
+    if question[index]:
+        quiz_question = QuizQuestion()
+        quiz_question.question = "¿Cuál es el comando para obtener el historial de commits?"
+        quiz_question.answers = ["git commits", "git log", "git all commits"]
+        quiz_question.correct_answer_position = 1
+        quiz_question.correct_answer = "git log"
+        add_quiz_question(update, context, quiz_question)
 
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Cuál es el comando para pushear a remote origin?"
-    quiz_question.answers = ["git remote", "git remote push", "git push origin"]
-    quiz_question.correct_answer_position = 2
-    quiz_question.correct_answer = "git push origin"
+    index+=1
 
-    add_quiz_question(update, context, quiz_question)
+    if question[index]:
+        quiz_question = QuizQuestion()
+        quiz_question.question = "¿Cuál es el comando para pushear a remote origin?"
+        quiz_question.answers = ["git remote", "git remote push", "git push origin"]
+        quiz_question.correct_answer_position = 2
+        quiz_question.correct_answer = "git push origin"
+        add_quiz_question(update, context, quiz_question)
 
-    quiz_question = QuizQuestion()
-    quiz_question.question = "Git pull es una combinación de"
-    quiz_question.answers = ["add y commit", "fetch y merge", "branch y commit"]
-    quiz_question.correct_answer_position = 1
-    quiz_question.correct_answer = "fetch y merge"
+    index+=1
 
-    add_quiz_question(update, context, quiz_question)
+    if question[index]:
+        quiz_question = QuizQuestion()
+        quiz_question.question = "Git pull es una combinación de"
+        quiz_question.answers = ["add y commit", "fetch y merge", "branch y commit"]
+        quiz_question.correct_answer_position = 1
+        quiz_question.correct_answer = "fetch y merge"
+        add_quiz_question(update, context, quiz_question)
 
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Cual opcion de git reset no altera el directorio de trabajo?"
-    quiz_question.answers = ["--soft", "--mixed", "--hard"]
-    quiz_question.correct_answer_position = [0,1]
-    quiz_question.correct_answer = ["--soft", "--mixed"]
+    index+=1
 
-    add_quiz_question(update, context, quiz_question)
+    #quiz_question = QuizQuestion()
+    #quiz_question.question = "¿Cual opcion de git reset no altera el directorio de trabajo?"
+    #quiz_question.answers = ["--soft", "--mixed", "--hard"]
+    #quiz_question.correct_answer_position = [0,1]
+    #quiz_question.correct_answer = ["--soft", "--mixed"]
+    #add_quiz_question(update, context, quiz_question)
 
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Que tipo de merge ocurre cuando hay desarrollo lineal entre las ramas a fusionar?"
-    quiz_question.answers = ["fastforward", "recursive", "linear"]
-    quiz_question.correct_answer_position = 0
-    quiz_question.correct_answer = "fastforward"
-
-    add_quiz_question(update, context, quiz_question)
-
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Que comando se usa para crear una nueva rama?"
-    quiz_question.answers = ["checkout -b 'nombre-rama'", "create branch 'nombre-rama'", "new branch 'nombre-rama'"]
-    quiz_question.correct_answer_position = 0
-    quiz_question.correct_answer = "checkout -b 'nombre-rama'"
-
-    add_quiz_question(update, context, quiz_question)
+    if question[index]:
+        quiz_question = QuizQuestion()
+        quiz_question.question = "¿Que tipo de merge ocurre cuando hay desarrollo lineal entre las ramas a fusionar?"
+        quiz_question.answers = ["fastforward", "recursive", "linear"]
+        quiz_question.correct_answer_position = 0
+        quiz_question.correct_answer = "fastforward"
+        add_quiz_question(update, context, quiz_question)
     
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Que comando se usa para cambiar de rama?"
-    quiz_question.answers = ["checkout -c 'nombre-rama'", "checkout 'nombre-rama'", "change branch 'nombre-rama'"]
-    quiz_question.correct_answer_position = 1
-    quiz_question.correct_answer = "checkout 'nombre-rama'"
+    index+=1
 
-    add_quiz_question(update, context, quiz_question)
+    if question[index]:
+        quiz_question = QuizQuestion()
+        quiz_question.question = "¿Que comando se usa para crear una nueva rama?"
+        quiz_question.answers = ["checkout -b 'nombre-rama'", "create branch 'nombre-rama'", "new branch 'nombre-rama'"]
+        quiz_question.correct_answer_position = 0
+        quiz_question.correct_answer = "checkout -b 'nombre-rama'"
+        add_quiz_question(update, context, quiz_question)
+    
+    index+=1
 
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Que comando sirve para introducir un commit de una rama a otra?"
-    quiz_question.answers = ["git get commit", "git add commit","git cherrypick commit"]
-    quiz_question.correct_answer_position = 2
-    quiz_question.correct_answer = "git cherrypick commit"
+    if question[index]:
+        quiz_question = QuizQuestion()
+        quiz_question.question = "¿Que comando se usa para cambiar de rama?"
+        quiz_question.answers = ["checkout -c 'nombre-rama'", "checkout 'nombre-rama'", "change branch 'nombre-rama'"]
+        quiz_question.correct_answer_position = 1
+        quiz_question.correct_answer = "checkout 'nombre-rama'"
+        add_quiz_question(update, context, quiz_question)
 
-    add_quiz_question(update, context, quiz_question)
+    index+=1
 
-    quiz_question = QuizQuestion()
-    quiz_question.question = "¿Que comando sirve para revertir los cambios hechos en una rama?"
-    quiz_question.answers = ["git revert", "git goback","git reset"]
-    quiz_question.correct_answer_position = [0,2]
-    quiz_question.correct_answer = ["git revert","git reset"]
+    if question[index]:
+        quiz_question = QuizQuestion()
+        quiz_question.question = "¿Que comando sirve para introducir un commit de una rama a otra?"
+        quiz_question.answers = ["git get commit", "git add commit","git cherrypick commit"]
+        quiz_question.correct_answer_position = 2
+        quiz_question.correct_answer = "git cherrypick commit"
+        add_quiz_question(update, context, quiz_question)
 
-    add_quiz_question(update, context, quiz_question)
+    index+=1
+
+    #quiz_question = QuizQuestion()
+    #quiz_question.question = "¿Que comando sirve para revertir los cambios hechos en una rama?"
+    #quiz_question.answers = ["git revert", "git goback","git reset"]
+    #quiz_question.correct_answer_position = [0,2]
+    #quiz_question.correct_answer = ["git revert","git reset"]
+    #add_quiz_question(update, context, quiz_question)
 
 def help_command_handler(update, context):
     """Send a message when the command /help is issued."""
