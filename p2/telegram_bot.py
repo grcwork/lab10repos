@@ -68,31 +68,60 @@ def start_command_handler(update, context):
     add_typing(update, context)
 
     preguntas = [
+        #PREGUNTA 1
     ["¿Que es git?",["Una plataforma de repositorios remotos", "Un sistema de control de versiones", "Un lenguaje de script"],
     1, "Un sistemas de control de versiones"],
+        #PREGUNTA 2
     ["¿Cuál es el comando para obtener el estado actual del repositorio git?",["git status", "git current", "git currentStatus"],
     0, "git status"],
+        #PREGUNTA 3
     ["¿Cuál es el comando para inicializar un repositorio git?", ["git start", "git now", "git init"],
     2, "git init"],
+        #PREGUNTA 4
     ["¿Cuál es el comando para obtener el historial de commits?", ["git commits", "git log", "git all commits"],
     1, "git log"],
+        #PREGUNTA 5
     ["¿Cuál es el comando para pushear a remote origin?", ["git remote", "git remote push", "git push origin"],
     2, "git push origin"],
+        #PREGUNTA 6
     ["Git pull es una combinación de", ["add y commit", "fetch y merge", "branch y commit"],
     1, "fetch y merge"],
+        #PREGUNTA 7
     ["¿Cual opcion de git reset no altera el directorio de trabajo?", ["--soft", "--mixed", "--hard"],
     [0, 1], ["--soft", "--mixed"]],
+        #PREGUNTA 8
     ["¿Que tipo de merge ocurre cuando hay desarrollo lineal entre las ramas a fusionar?", ["fastforward", "recursive", "linear"],
     0, "fastforward"],
+        #PREGUNTA 9
     ["¿Que comando se usa para crear una nueva rama?", ["checkout -b 'nombre-rama'", "create branch 'nombre-rama'", "new branch 'nombre-rama'"],
     0, "checkout -b 'nombre-rama'"],
+        #PREGUNTA 10
     ["¿Que comando se usa para cambiar de rama?", ["checkout -c 'nombre-rama'", "checkout 'nombre-rama'", "change branch 'nombre-rama'"],
     1, "checkout 'nombre-rama'"],
+        #PREGUNTA 11
     ["¿Que comando sirve para introducir un commit de una rama a otra?", ["git get commit", "git add commit","git cherrypick commit"],
     2, "git cherrypick commit"],
+        #PREGUNTA 12
     ["¿Que comando sirve para revertir los cambios hechos en una rama?", ["git revert", "git goback","git reset"],
-    [0, 2], ["git revert","git reset"]]
-
+    [0, 2], ["git revert","git reset"]],
+        #PREGUNTA 13
+    ["¿Para que sirve git status?", ["Visualizar los archivos que se han preparado, sin preparar y sin seguimiento", "Visulaizar todos los commits de la rama actual", "Visulaizar la información del user (nombre, correo, etc)"],
+    0, "se pueden ver los archivos que se han preparado, sin preparar y sin seguimiento"],
+        #PREGUNTA 14
+    ["¿A que comando corresponde 'Ayuda a identificar el autor de ciertos cambios específicos'?", ["git bisect", "git log", "git blame"],
+    2, "git blame"],
+        #PREGUNTA 15
+    ["¿Para que sirven las github actions?", ["Ayudan a identificar los cambios producidos en el código", "Ayudan a automatizar tareas dentro del ciclo de vida del desarrollo", "Sirven para alojar documentación para tu repositorio"],
+    1, "Ayudan a automatizar tareas dentro del ciclo de vida del desarrollo"],
+        #PREGUNTA 16
+    ["¿Que ocurre al hacer un push a un repositorio fork?", ["Se modifica la copia y el repositorio original queda intacto", "Se modifica el repositorio original y el fork queda intacto", "Ambos se modifican a la par"],
+    0, "Se modifica la copia y el repositorio original queda intacto"],
+        #PREGUNTA 17
+    ["¿Que se debe escribir al principio de un commit para cerrar un issue?", ["Issue close + referencia a un issue", "Close issue number + referencia a un issue", "Close + referencia a un issue"],
+    2, "Close + referencia a un issue"],
+        #PREGUNTA 18
+    ["¿De que se NO puede componer un Github Issue?", ["Título", "Número de commits realizados", "Etiqueta(s)"],
+    1, "Número de commits realizados"]
     ]
 
     randoms = random.sample(range(len(preguntas)), N_ANS)
@@ -204,7 +233,7 @@ def add_quiz_question(update, context, quiz_question):
         correct_option_id=quiz_question.correct_answer_position,
         #open_period=20,
         is_anonymous=True,
-        explanation="Well, honestly that depends on what you eat",
+        explanation="Respuesta incorrecta",
         explanation_parse_mode=telegram.ParseMode.MARKDOWN_V2,
     )
 
