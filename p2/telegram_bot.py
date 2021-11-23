@@ -67,8 +67,8 @@ def start_command_handler(update, context):
     """Send a message when the command /start is issued."""
     add_typing(update, context)
 
-    question = [False]*10
-    index = list(range(0, 10))
+    question = [False]*16
+    index = list(range(0, 16))
     selected_idx = random.sample(index, 6)
     for idx in selected_idx:
         question[idx] = True
